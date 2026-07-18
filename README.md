@@ -1,17 +1,25 @@
 # nxapi-browser
 
 Extensión de Chrome que inyecta tu presencia de Nintendo Switch (vía
-<<<<<<< HEAD
 [nxapi-auth](https://nxapi-auth.fancy.org.uk/), del
 [proyecto nxapi](https://github.com/samuelthomas2774/nxapi)) como Rich
-=======
-[nxapi-presence](https://github.com/samuelthomas2774/nxapi)) como Rich
->>>>>>> b27cfb6572b3e7bafa5c07f84b6f8610b6392455
 Presence real en **Discord Web**.
 
 No trae ninguna cuenta ni credencial precargada — cada persona que la instale
 configura su propia URL de presencia y su propia app de Discord desde el
 popup de la extensión.
+
+## Requisitos
+
+- **Google Chrome** (o un navegador basado en Chromium con soporte MV3).
+- **[Vencord Web](https://vencord.dev/download/#browser)** instalado y
+  activo en la pestaña de Discord. Es una dependencia dura, no opcional:
+  esta extensión encuentra el `FluxDispatcher` interno de Discord usando la
+  API que Vencord ya expone (`Vencord.Webpack.Common`), que es mucho más
+  confiable que buscarlo a mano. Existe un fallback manual en
+  `content-main.js` por si algún día Vencord no está, pero es bastante más
+  frágil y puede no encontrar el dispatcher en builds nuevas de Discord — el
+  popup te avisa con un cartel si no lo detecta.
 
 ## Configuración inicial (obligatoria)
 
@@ -19,30 +27,19 @@ La extensión no hace nada hasta que completes estos dos pasos desde su popup:
 
 ### 1. Tu URL de nxapi-presence
 
-<<<<<<< HEAD
 Se consigue logueándote en
 [nxapi-auth.fancy.org.uk](https://nxapi-auth.fancy.org.uk/) con tu cuenta de
 Discord (OAuth) — ahí te genera tu URL personal de presencia, con esta forma:
-=======
-Es la que te da tu instancia de `nxapi-presence` (la pública en
-[nxapi-presence.fancy.org.uk](https://nxapi-presence.fancy.org.uk/) o una que
-vos mismo hostees corriendo el
-[proyecto nxapi](https://github.com/samuelthomas2774/nxapi)). Tiene esta
-forma:
->>>>>>> b27cfb6572b3e7bafa5c07f84b6f8610b6392455
 
 ```
 https://nxapi-presence.fancy.org.uk/api/presence/TU_ID_DE_AMIGO
 ```
 
-<<<<<<< HEAD
 Esa es la URL que copiás y pegás en el popup de la extensión. Si en cambio
 corrés tu propia instancia del [proyecto nxapi](https://github.com/samuelthomas2774/nxapi)
 en otro dominio, la URL va a tener ese dominio en vez de
 `nxapi-presence.fancy.org.uk`.
 
-=======
->>>>>>> b27cfb6572b3e7bafa5c07f84b6f8610b6392455
 > Si usás una instancia propia en otro dominio, agregá ese dominio a
 > `host_permissions` en `manifest.json` antes de cargar la extensión —
 > por defecto solo tiene permiso para `nxapi-presence.fancy.org.uk`.
@@ -70,12 +67,13 @@ hace esta extensión es:
    cambios en ese storage (presencia, tu Application ID, preferencias) y los
    reenvía a la página con `postMessage`.
 3. Un content script en modo **MAIN world** (`content-main.js`) —o sea, que
-   corre con acceso directo al JS de la propia página de Discord— se
-   engancha al *webpack chunk loader* de Discord para encontrar su
-   `FluxDispatcher` interno (o usa el de **Vencord**, si está instalado, que
-   es más confiable), y le dispara un evento `LOCAL_ACTIVITY_UPDATE`. Esa es
-   exactamente la técnica que usan plugins conocidos como **CustomRPC** de
-   Vencord/BetterDiscord.
+   corre con acceso directo al JS de la propia página de Discord— usa la API
+   que expone **Vencord Web** (`Vencord.Webpack.Common.FluxDispatcher`) para
+   encontrar el dispatcher interno de Discord de forma confiable, y le
+   dispara un evento `LOCAL_ACTIVITY_UPDATE`. Esa es exactamente la técnica
+   que usan plugins conocidos como **CustomRPC** de Vencord/BetterDiscord.
+   Si Vencord no está instalado, cae a una búsqueda manual sobre el webpack
+   crudo de Discord — funciona a veces, pero es frágil.
 
 Esto hace que el status se vea como una Rich Presence real (visible para tus
 amigos), porque se integra al mismo pipeline que usa Discord para las
@@ -107,13 +105,15 @@ actividades detectadas localmente.
 
 ## Instalación (modo desarrollador)
 
-1. Cloná o descargá este repo.
-2. Abrí `chrome://extensions`.
-3. Activá **Modo desarrollador** (arriba a la derecha).
-4. Click en **Cargar descomprimida** y seleccioná esta carpeta.
-5. Click en el ícono de la extensión y completá la
+1. Instalá [Vencord Web](https://vencord.dev/download/#browser) primero
+   (requisito, ver arriba).
+2. Cloná o descargá este repo.
+3. Abrí `chrome://extensions`.
+4. Activá **Modo desarrollador** (arriba a la derecha).
+5. Click en **Cargar descomprimida** y seleccioná esta carpeta.
+6. Click en el ícono de la extensión y completá la
    [configuración inicial](#configuración-inicial-obligatoria).
-6. Abrí o recargá Discord Web (`https://discord.com/app`).
+7. Abrí o recargá Discord Web (`https://discord.com/app`).
 
 ## Notas
 

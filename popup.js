@@ -5,6 +5,7 @@ const enabledEl = document.getElementById("enabled");
 const showIdleEl = document.getElementById("showIdleStatus");
 const statusEl = document.getElementById("status");
 const setupWarningEl = document.getElementById("setupWarning");
+const vencordWarningEl = document.getElementById("vencordWarning");
 const refreshBtn = document.getElementById("refresh");
 
 function renderSetupWarning(res) {
@@ -19,6 +20,10 @@ function renderSetupWarning(res) {
 
   setupWarningEl.style.display = "block";
   setupWarningEl.textContent = "Falta configurar " + missing.join(" y ") + " para que funcione.";
+}
+
+function renderVencordWarning(vencordDetected) {
+  vencordWarningEl.style.display = vencordDetected ? "none" : "block";
 }
 
 function render(state) {
@@ -51,6 +56,7 @@ chrome.storage.local.get(
     "presenceData",
     "lastSync",
     "lastError",
+    "vencordDetected",
   ],
   (res) => {
     apiUrlEl.value = res.apiUrl || "";
@@ -59,6 +65,7 @@ chrome.storage.local.get(
     enabledEl.checked = res.enabled !== false;
     showIdleEl.checked = res.showIdleStatus === true;
     renderSetupWarning(res);
+    renderVencordWarning(res.vencordDetected === true);
     render(res);
   }
 );

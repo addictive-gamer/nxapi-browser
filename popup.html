@@ -77,23 +77,39 @@
     font-size: 11px;
     line-height: 1.4;
   }
+  #vencordWarning {
+    display: none;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    background: #4a3b1799;
+    border: 1px solid #b3891f;
+    color: #f5dfa8;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  #vencordWarning a {
+    color: #fff;
+    font-weight: 600;
+  }
 </style>
 </head>
 <body>
   <h1>🎮 Switch → Discord RPC</h1>
 
   <div id="setupWarning"></div>
+  <div id="vencordWarning">
+    ⚠️ No detecté <a href="https://vencord.dev/download/#browser" target="_blank">Vencord Web</a>
+    en esta pestaña de Discord. Es requisito — sin Vencord la Rich Presence
+    puede no aparecer o dejar de funcionar en cualquier actualización de
+    Discord. Instalalo y recargá la pestaña.
+  </div>
 
   <label for="apiUrl">URL de la API de nxapi-presence</label>
   <input type="text" id="apiUrl" placeholder="https://nxapi-presence.fancy.org.uk/api/presence/TU_ID" />
   <div class="help">
-<<<<<<< HEAD
     Se genera logueándote con Discord en
     <a href="https://nxapi-auth.fancy.org.uk/" target="_blank">nxapi-auth</a>.
-=======
-    Se genera en tu cuenta de
-    <a href="https://nxapi-presence.fancy.org.uk/" target="_blank">nxapi-presence</a>.
->>>>>>> b27cfb6572b3e7bafa5c07f84b6f8610b6392455
   </div>
 
   <label for="applicationId">Discord Application ID</label>

@@ -1,7 +1,21 @@
 (function () {
   const TYPE = "NXAPI_RPC_UPDATE";
+  const STATUS_TYPE = "NXAPI_RPC_STATUS";
   const SOCKET_ID = "nxapi-rpc";
   let retryAttempts = 0;
+
+  // Le avisa al popup (via content-isolated.js) si Vencord Web esta presente.
+  // Sin Vencord, el fallback manual de mas abajo es mucho mas fragil.
+  function reportVencordStatus() {
+    window.postMessage(
+      { type: STATUS_TYPE, vencordDetected: !!window.Vencord?.Webpack },
+      "*"
+    );
+  }
+  reportVencordStatus();
+  // Vencord puede tardar en inicializar sus modulos; reintentamos el chequeo.
+  setTimeout(reportVencordStatus, 3000);
+  setTimeout(reportVencordStatus, 8000);
 
   // --- Utilidades para encontrar el FluxDispatcher interno de Discord ---
   // Misma tecnica que usan plugins de Vencord/BetterDiscord tipo CustomRPC:
@@ -187,6 +201,7 @@
       return false;
     }
     retryAttempts = 0;
+    reportVencordStatus();
     FluxDispatcher.dispatch({
       type: "LOCAL_ACTIVITY_UPDATE",
       activity,

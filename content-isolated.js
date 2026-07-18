@@ -1,5 +1,6 @@
 (function () {
   const TYPE = "NXAPI_RPC_UPDATE";
+  const STATUS_TYPE = "NXAPI_RPC_STATUS";
 
   function buildConfig(storageState) {
     return {
@@ -15,6 +16,14 @@
   function relayOffline(config) {
     relay({ friend: { presence: { state: "OFFLINE" } } }, config);
   }
+
+  // Reenvia si Vencord Web esta presente en la pagina, para mostrarlo en el popup.
+  window.addEventListener("message", (event) => {
+    if (event.source !== window) return;
+    const data = event.data;
+    if (!data || data.type !== STATUS_TYPE) return;
+    chrome.storage.local.set({ vencordDetected: !!data.vencordDetected });
+  });
 
   const STORAGE_KEYS = ["presenceData", "enabled", "showIdleStatus", "applicationId"];
 
