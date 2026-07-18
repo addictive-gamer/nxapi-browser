@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Switch → Discord RPC</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    width: 300px;
+    padding: 14px;
+    background: #1e1f22;
+    color: #dbdee1;
+  }
+  h1 {
+    font-size: 14px;
+    margin: 0 0 12px;
+    color: #fff;
+  }
+  label {
+    display: block;
+    font-size: 11px;
+    margin-top: 10px;
+    color: #b5bac1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 8px;
+    margin-top: 4px;
+    border-radius: 4px;
+    border: 1px solid #3f4147;
+    background: #2b2d31;
+    color: #fff;
+    font-size: 12px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  button {
+    margin-top: 12px;
+    width: 100%;
+    padding: 9px;
+    border: none;
+    border-radius: 4px;
+    background: #5865f2;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #4752c4;
+  }
+  .help {
+    font-size: 10px;
+    color: #80848e;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+  .help a {
+    color: #8ea1e1;
+  }
+  #setupWarning {
+    display: none;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    background: #43222899;
+    border: 1px solid #a23c3c;
+    color: #f5c2c2;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+  <h1>🎮 Switch → Discord RPC</h1>
+
+  <div id="setupWarning"></div>
+
+  <label for="apiUrl">URL de la API de nxapi-presence</label>
+  <input type="text" id="apiUrl" placeholder="https://nxapi-presence.fancy.org.uk/api/presence/TU_ID" />
+  <div class="help">
+    Se genera en tu cuenta de
+    <a href="https://nxapi-presence.fancy.org.uk/" target="_blank">nxapi-presence</a>.
+  </div>
+
+  <label for="applicationId">Discord Application ID</label>
+  <input type="text" id="applicationId" placeholder="123456789012345678" />
+  <div class="help">
+    Creá una app propia (gratis, sin bot) en el
+    <a href="https://discord.com/developers/applications" target="_blank">Developer Portal</a>
+    y pegá el ID acá.
+  </div>
+
+  <label for="pollMinutes">Intervalo de polling (min)</label>
+  <input type="number" id="pollMinutes" min="0.5" step="0.5" />
+
+  <div class="row">
+    <span style="font-size:12px;">Activado</span>
+    <input type="checkbox" id="enabled" />
+  </div>
+
+  <div class="row">
+    <span style="font-size:12px;">Mostrar "Not playing" offline</span>
+    <input type="checkbox" id="showIdleStatus" />
+  </div>
+
+  <button id="refresh">Actualizar ahora</button>
+
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
