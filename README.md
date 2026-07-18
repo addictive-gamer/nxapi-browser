@@ -1,8 +1,12 @@
 # nxapi-browser
 
 Extensión de Chrome que inyecta tu presencia de Nintendo Switch (vía
+<<<<<<< HEAD
 [nxapi-auth](https://nxapi-auth.fancy.org.uk/), del
 [proyecto nxapi](https://github.com/samuelthomas2774/nxapi)) como Rich
+=======
+[nxapi-presence](https://github.com/samuelthomas2774/nxapi)) como Rich
+>>>>>>> b27cfb6572b3e7bafa5c07f84b6f8610b6392455
 Presence real en **Discord Web**.
 
 No trae ninguna cuenta ni credencial precargada — cada persona que la instale
@@ -15,19 +19,30 @@ La extensión no hace nada hasta que completes estos dos pasos desde su popup:
 
 ### 1. Tu URL de nxapi-presence
 
+<<<<<<< HEAD
 Se consigue logueándote en
 [nxapi-auth.fancy.org.uk](https://nxapi-auth.fancy.org.uk/) con tu cuenta de
 Discord (OAuth) — ahí te genera tu URL personal de presencia, con esta forma:
+=======
+Es la que te da tu instancia de `nxapi-presence` (la pública en
+[nxapi-presence.fancy.org.uk](https://nxapi-presence.fancy.org.uk/) o una que
+vos mismo hostees corriendo el
+[proyecto nxapi](https://github.com/samuelthomas2774/nxapi)). Tiene esta
+forma:
+>>>>>>> b27cfb6572b3e7bafa5c07f84b6f8610b6392455
 
 ```
 https://nxapi-presence.fancy.org.uk/api/presence/TU_ID_DE_AMIGO
 ```
 
+<<<<<<< HEAD
 Esa es la URL que copiás y pegás en el popup de la extensión. Si en cambio
 corrés tu propia instancia del [proyecto nxapi](https://github.com/samuelthomas2774/nxapi)
 en otro dominio, la URL va a tener ese dominio en vez de
 `nxapi-presence.fancy.org.uk`.
 
+=======
+>>>>>>> b27cfb6572b3e7bafa5c07f84b6f8610b6392455
 > Si usás una instancia propia en otro dominio, agregá ese dominio a
 > `host_permissions` en `manifest.json` antes de cargar la extensión —
 > por defecto solo tiene permiso para `nxapi-presence.fancy.org.uk`.
